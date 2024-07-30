@@ -2,9 +2,10 @@ import React from "react";
 import useFetchDevices from "./hooks/useFetchDevices";
 import useToggleDevice from "./hooks/useToggleDevice";
 import DeviceCard from "./components/DeviceCard";
+import devices from "./mocks/devices.json";
 
 const App = () => {
-  const { devices, loading, error } = useFetchDevices();
+  const { loading, error } = useFetchDevices();
   const { toggleDevice } = useToggleDevice();
 
   const handleToggle = async (deviceHost, state) => {

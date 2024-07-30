@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Enchufe Cocina",
+    "type": "Enchufe",
+    "ip": "192.168.1.2"
+  },
+  {
+    "name": "Luz Sala",
+    "type": "Luz",
+    "ip": "192.168.1.3"
+  },
+  {
+    "name": "Cámara Entrada",
+    "type": "Cámara",
+    "ip": "192.168.1.4"
+  },
+  {
+    "name": "Termostato",
+    "type": "Termostato",
+    "ip": "192.168.1.5"
+  }
+]
