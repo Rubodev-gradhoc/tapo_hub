@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import api from "../axiosInstance";
 
 const useFetchDevices = () => {
   const [devices, setDevices] = useState<any[]>([]);
@@ -9,12 +10,23 @@ const useFetchDevices = () => {
     const fetchDevices = async () => {
       try {
         setLoading(true);
-        const response = await fetch("http://0.0.0.0:8000/devices");
-        if (!response.ok) {
-          throw new Error("Error fetching devices");
+        //Coger del localStorage el email y la contraseña y pasarla por params
+
+        const email = localStorage.getItem("email");
+        const password = localStorage.getItem("password");
+
+        if (!email || !password) {
+          throw new Error("Email or password not found");
         }
-        const data = await response.json();
-        setDevices(data.devices);
+
+        const body = {
+          email,
+          password,
+        };
+
+        const response = await api.post("/devices", body);
+
+        setDevices(response.data);
       } catch (error: any) {
         setError(error.message);
       } finally {
@@ -22,7 +34,7 @@ const useFetchDevices = () => {
       }
     };
 
-    // fetchDevices();
+    fetchDevices();
   }, []);
 
   return { devices, loading, error };

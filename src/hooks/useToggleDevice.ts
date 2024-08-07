@@ -1,20 +1,21 @@
+import api from "../axiosInstance";
+
 const useToggleDevice = () => {
   const toggleDevice = async (deviceHost: string, state: string) => {
     try {
-      const response = await fetch(`http://0.0.0.0:8000/device/${state}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ device_host: deviceHost }),
-      });
+      const email = localStorage.getItem("email");
+      const password = localStorage.getItem("password");
 
-      if (!response.ok) {
-        throw new Error("Error toggling device");
+      if (!email || !password) {
+        throw new Error("Email or password not found");
       }
 
-      const data = await response.json();
-      return data.message;
+      const response = await api.post(`/device/${state}`, {
+        device_host: deviceHost,
+        email,
+        password,
+      });
+      return response.data;
     } catch (error: any) {
       throw new Error(error.message);
     }
